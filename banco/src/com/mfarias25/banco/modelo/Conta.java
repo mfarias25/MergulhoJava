@@ -2,7 +2,7 @@ package com.mfarias25.banco.modelo;
 
 import java.util.Objects;
 
-public class Conta {
+public abstract class Conta {
 
     private Pessoa titular;
     private int agencia;
@@ -27,7 +27,13 @@ public class Conta {
         return saldo;
     }
 
+
+
+
     //     com.mfarias25.banco.modelo.Conta() {}  //CONTRUTOR
+    Conta() {
+
+    }
 
     public Conta(Pessoa titular, int agencia, int numero) { // CONTRUTOR
         Objects.requireNonNull(titular); // validacao de objetos exigindo argumentos nao null.
@@ -49,7 +55,7 @@ public class Conta {
             throw new IllegalArgumentException("Valor deve ser maior que 0");
         }
 
-        if (saldo - valor < 0) {
+        if (getSaldoDisponivel() - valor < 0) {
             throw new IllegalStateException("Saldo insuficiente");
         }
         saldo = saldo - valor;
@@ -58,5 +64,11 @@ public class Conta {
     public void sacar(double valor, double taxaSaque) {
         sacar(valor + taxaSaque);
     }
+
+    public double getSaldoDisponivel() {
+        return getSaldo();
+    }
+
+    public abstract void debitarTarifasMensal();
 
 }

@@ -2,6 +2,7 @@ package com.mfarias25.banco.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Pessoa {
 
@@ -10,6 +11,14 @@ public class Pessoa {
     private BigDecimal rendimentoAnual;
     private TipoPessoa tipo = TipoPessoa.FISICA;
     private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now(); //DataHora ISO 8601
+
+    public Pessoa() {
+    }
+
+    public Pessoa(String nome, String documento) {
+        this.nome = nome;
+        this.documento = documento;
+    }
 
     public String getNome() {
         return nome;
@@ -49,5 +58,27 @@ public class Pessoa {
 
     public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" +
+                "nome='" + nome + '\'' +
+                ", documento='" + documento + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(documento, pessoa.documento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(documento);
     }
 }
